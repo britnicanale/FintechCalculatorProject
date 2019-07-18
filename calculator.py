@@ -2,6 +2,9 @@
 
 def calculate():
     plus = False
+    minus = False
+    multiply = False
+    divide = False
     exp = input("Write your expression below. Use numbers only\n ")
     numbers = []
     result= 0
@@ -12,14 +15,20 @@ def calculate():
             return "Sorry, characters must be numerical digits"
         if i == "+":
             plus = True
+        if i == "-":
+            minus = True
+        if i == "*":
+            multiply = True
+        if i == "/":
+            divide = True
     if plus:
         result = numbers[0] + numbers[1]
-    # elif minus:
-    #     result = a - b
-    # elif multiply:
-    #     result = a * b
-    # elif divide:
-    #     result = a / b
+    elif minus:
+        result = numbers[0] - numbers[1]
+    elif multiply:
+        result = numbers[0] * numbers[1]
+    elif divide:
+        result = numbers[0] / numbers[1]
     return result
 
 
