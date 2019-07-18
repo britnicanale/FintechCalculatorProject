@@ -10,10 +10,10 @@ def calculate(exp):
     result= 0
     for i in exp:
         try:
-            i = int(i)
+            i = float(i)
         except ValueError:
             pass
-        if isinstance(i, int):
+        if isinstance(i, float):
             numbers.append(int(i))
         elif i.isalpha():
             return "Sorry, characters must be numerical digits"
@@ -25,7 +25,7 @@ def calculate(exp):
             multiply = True
         elif i == "/":
             divide = True
-    #print(numbers)
+    print(numbers)
     if plus:
         result = numbers[0] + numbers[1]
     elif minus:
@@ -45,7 +45,25 @@ def multi_calculate():
     if len(digits) <3:
         return "This statement is invalid"
     while len(digits)>1:
-        #print(digits)
+        print(digits)
+        while "*" in digits or "/" in digits:
+            print(digits)
+            if "*" in digits and "/" in digits:
+                divide = digits.index("/")
+                multiply = digits.index("*")
+                if divide < multiply:
+                    index = divide - 1
+                else:
+                    index = multiply - 1
+            elif "*" in digits:
+                index = digits.index("*") - 1
+            elif "/" in digits:
+                index = digits.index("/") - 1
+            num = calculate(digits[index:index + 3])
+            digits.pop(index)
+            digits.pop(index)
+            digits.pop(index)
+            digits.insert(index, num)
         num = calculate(digits[0:3])
         digits.pop(0)
         digits.pop(0)
