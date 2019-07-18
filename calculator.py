@@ -9,18 +9,23 @@ def calculate(exp):
     b = 0
     result= 0
     for i in exp:
-        if i.isdigit():
+        try:
+            i = int(i)
+        except ValueError:
+            pass
+        if isinstance(i, int):
             numbers.append(int(i))
-        if i.isalpha():
+        elif i.isalpha():
             return "Sorry, characters must be numerical digits"
-        if i == "+":
+        elif i == "+":
             plus = True
-        if i == "-":
+        elif i == "-":
             minus = True
-        if i == "*":
+        elif i == "*":
             multiply = True
-        if i == "/":
+        elif i == "/":
             divide = True
+    #print(numbers)
     if plus:
         result = numbers[0] + numbers[1]
     elif minus:
@@ -29,13 +34,18 @@ def calculate(exp):
         result = numbers[0] * numbers[1]
     elif divide:
         result = numbers[0] / numbers[1]
+    else:
+        return "Sorry, this statement is invalid"
     return str(result)
     
 
 def multi_calculate():
-    exp = input("Write your expression below. Use numbers only\n ")
-    digits = exp.split()
+    exp = input("Please separate all numbers and operators with spaces. Write your expression below. Use numbers only\n ")
+    digits = exp.split(' ')
+    if len(digits) <3:
+        return "This statement is invalid"
     while len(digits)>1:
+        #print(digits)
         num = calculate(digits[0:3])
         digits.pop(0)
         digits.pop(0)
