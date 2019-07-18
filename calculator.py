@@ -9,6 +9,7 @@ def calculate(exp):
     b = 0
     result= 0
     for i in exp:
+        #print (i) 
         try:
             i = float(i)
         except ValueError:
@@ -18,6 +19,7 @@ def calculate(exp):
         elif i.isalpha():
             return "Sorry, characters must be numerical digits"
         elif i == "+":
+            #print("plus")
             plus = True
         elif i == "-":
             minus = True
@@ -27,7 +29,9 @@ def calculate(exp):
             divide = True
     print(numbers)
     if plus:
+        #print("plus")
         result = numbers[0] + numbers[1]
+        #print(result)
     elif minus:
         result = numbers[0] - numbers[1]
     elif multiply:
@@ -39,15 +43,21 @@ def calculate(exp):
     return str(result)
     
 
-def multi_calculate():
-    exp = input("Please separate all numbers and operators with spaces. Write your expression below. Use numbers only\n ")
-    digits = exp.split(' ')
+def multi_calculate(digits):
     if len(digits) <3:
         return "This statement is invalid"
     while len(digits)>1:
-        print(digits)
+        # print(digits)
+        while "(" in digits or ")" in digits:
+            if not "(" in digits and ")" in digits:
+                return "Sorry, your statement is invalid"
+            close = digits.index(")")
+            open = rindex(digits[0: close], "(")
+            num = multi_calculate(digits[open + 1: close])
+            for i in range(open, close + 1):
+                digits.pop(open)
+            digits.insert(open, num)
         while "*" in digits or "/" in digits:
-            print(digits)
             if "*" in digits and "/" in digits:
                 divide = digits.index("/")
                 multiply = digits.index("*")
@@ -69,6 +79,18 @@ def multi_calculate():
         digits.pop(0)
         digits.pop(0)
         digits.insert(0, num)
+        #print(digits)
     return digits[0]
 
-print(multi_calculate())
+def calculator():
+    exp = input("Please separate all numbers and operators with spaces. Write your expression below. Use numbers only\n ")
+    digits = exp.split(' ')
+    return multi_calculate(digits)
+    
+
+
+def rindex(lis, value):
+    lis.reverse()
+    return lis.index(value)
+
+print(calculator())
